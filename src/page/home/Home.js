@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import Template1 from "../template/Template1/Template1";
 
 export default class home extends Component {
     render() {
         return (
-            <div style={{ height: "400px" }}> home </div>
+            <div>
+                <Template1 />
+            </div>
         );
     }
 }

@@ -1,15 +1,17 @@
 import React, { Fragment } from "react";
 import { Route, Redirect } from "react-router-dom";
-import Header from "../components/Header"
-import Footer from "../components/Footer"
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
-const HomeLayout = props => {
+const HomeLayout = (props) => {
   return (
-    <Fragment>
+    <div >
       <Header />
-      {props.children}
+      <div className="wrapper">
+        {props.children}
+      </div>
       <Footer />
-    </Fragment>
+    </div>
   );
 };
 
@@ -17,7 +19,7 @@ export default function HomeTemplate({ Component, ...props }) {
   return (
     <Route
       {...props}
-      render={propsComponent => {
+      render={(propsComponent) => {
         return (
           <HomeLayout>
             <Component {...propsComponent} />
