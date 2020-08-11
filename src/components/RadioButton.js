@@ -5,7 +5,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 export default function RadioButton(props) {
 
-  const [Value, setValue] = useState({ option: "", optionValid: false });
+  const [Value, setValue] = useState({ option: "Yes", optionValid: false });
 
   useEffect(() => {
     // console.log(Value)
@@ -26,7 +26,7 @@ export default function RadioButton(props) {
         {true ? <span> *</span> : ""}
       </h4>
       <FormControl>
-        <RadioGroup aria-label="gender" name="gender1" onChange={onchangeValues}>
+        <RadioGroup aria-label="gender" value={Value.option} name="gender1" onChange={onchangeValues}>
           <FormControlLabel value="Yes" control={<Radio color="primary" />} label="Có" />
           <FormControlLabel value="No" control={<Radio color="primary" />} label="Không" />
         </RadioGroup>

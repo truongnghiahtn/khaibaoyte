@@ -2,22 +2,28 @@ import React, { useState, useEffect } from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 export default function CheckBox(props) {
 
 
 
   const [values, setValue] = useState([]);
+  const [err, setErr] = useState(false);
 
 
 
   useEffect(() => {
     // console.log(values)
     props.datacheck(values)
+    setErr(false)
   }, [values])
   const helo = () => {
     // console.log(values)
     props.datacheck(values)
+    if (!values.length) {
+      setErr(true)
+    }
   }
   const onchangeFormControl = (e) => {
 
@@ -40,7 +46,7 @@ export default function CheckBox(props) {
   }
 
   return (
-    <div className={`input-group ${false ? "input-err" : ""}`}>
+    <div className={`input-group ${err ? "input-err" : ""}`}>
       <h4>Trong vòng 14 ngày Anh/ Chị có dấu hiệu nào sau đây không?</h4>
       <FormControl error={true} onChange={onchangeFormControl}>
         {["Option 1", "Option 2", "Option 3"].map((item, index) => (
@@ -52,6 +58,9 @@ export default function CheckBox(props) {
             labelPlacement={item}
           />
         ))}
+        <FormHelperText className={err ? "err-text" : "d-none"}>
+          <i className="fa fa-exclamation"></i> Đây là một câu hỏi bắt buộc
+        </FormHelperText>
       </FormControl>
     </div>
   );

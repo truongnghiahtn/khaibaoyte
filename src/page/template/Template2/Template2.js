@@ -20,14 +20,14 @@ export default class componentName extends Component {
     text = (data) => {
         if (data.text != "") {
             this.setState({
-                validName: data.inputValid
+                validName: true
             }, () => {
                 this.formValid();
             })
         }
         else {
             this.setState({
-                validName: data.inputValid
+                validName: false
             }, () => {
                 this.formValid();
             })
@@ -61,8 +61,6 @@ export default class componentName extends Component {
 
 
     }
-
-
     formValid = () => {
         this.setState({
             FormValid: this.state.validName && this.state.validCheckBox && this.state.validRadio
@@ -70,10 +68,13 @@ export default class componentName extends Component {
             console.log(this.state)
         })
     }
-
-
-
-
+    sendAnswers = () => {
+        if (this.state.FormValid) {
+            //send data
+        } else {
+            // baos loi
+        }
+    }
 
 
     render() {
@@ -88,7 +89,7 @@ export default class componentName extends Component {
                         <InputText datatext={this.text} />
                         <CheckBox datacheck={this.checkbox} />
                         <RadioButton dataradio={this.Radio} />
-                        <button className="btn btn-info" disabled={!this.state.FormValid}> Gui</button>
+                        <button className="btn btn-info" disabled={!this.state.FormValid} onClick={this.sendAnswers}> Gui</button>
                     </div>
                 </div>
             </Fragment>
