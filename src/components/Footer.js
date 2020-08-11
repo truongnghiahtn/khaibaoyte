@@ -7,7 +7,7 @@ export default class footer extends Component {
                 <div className="container">
                     <div className="d-flex justify-content-between">
                         <div className="footer-left ">
-                            <div className="footer-icon-right"> <i class="fa fa-volume-control-phone" aria-hidden="true"></i></div>
+                            <div className="footer-icon-right"> <i className="fa fa-volume-control-phone" aria-hidden="true"></i></div>
                             <div className="footer-title">
                                 <p>Đường dây nóng của bộ y tế</p>
                                 <h2>19003228/ 19009095</h2>
