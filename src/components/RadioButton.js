@@ -12,9 +12,10 @@ export default function RadioButton() {
       </h4>
       <FormControl>
         <RadioGroup aria-label="gender" name="gender1">
-          <FormControlLabel value={true} control={<Radio />} label="Có" />
-          <FormControlLabel value={false} control={<Radio />} label="Không" />
+          <FormControlLabel value="Yes" control={<Radio color="primary" />} label="Có" />
+          <FormControlLabel value="No" control={<Radio color="primary" />} label="Không" />
         </RadioGroup>
+
       </FormControl>
     </div>
   );
