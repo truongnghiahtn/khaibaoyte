@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Template1 from "../template/Template1/Template1";
+import Template2 from "../template/Template2/Template2";
 
 export default class home extends Component {
     render() {
         return (
             <div>
-                <Template1 />
+                <Template2 />
             </div>
         );
     }

@@ -7,7 +7,8 @@ export default function InputText(props) {
   const [Value, setValue] = useState({ text: "", inputValid: true });
   const [errValue, seterrValue] = useState("");
   useEffect(() => {
-    console.log(Value)
+    // console.log(Value)
+    props.datatext(Value)
     if (!Value.inputValid) {
       seterrValue("Đây là một câu hỏi bắt buộc");
     }
