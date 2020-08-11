@@ -91,7 +91,7 @@
   font-family: "Google Sans", Roboto, Arial, sans-serif;
 }
 body {
-  background-color: #eceef8;
+  background-color: #eceef8 !important;
 }
 .wrapper {
   max-width: 640px;
@@ -194,5 +194,21 @@ body {
     z-index: 1;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+  }
+}
+
+.img-qr {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 8px;
+  color: #202124;
+  background-color: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  padding: 24px;
+  display: block !important;
+  img {
+    width: 100%;
   }
 }
