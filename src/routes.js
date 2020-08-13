@@ -1,21 +1,17 @@
-import TrangChu from "./page/home/Home";
-
-
-
-
+import UserPage from "./page/home/UserPage";
+import AskPage from "./page/home/AskPage";
 
 const routesHome = [
   {
     path: "/",
     exact: true,
-    component: TrangChu
+    component: UserPage,
   },
   {
-    path: "/Trangchu",
+    path: "/ask",
     exact: false,
-    component: TrangChu
+    component: AskPage,
   },
 ];
 
 export { routesHome };
-
