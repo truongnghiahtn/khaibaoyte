@@ -17,7 +17,7 @@ export default class componentName extends Component {
   }
 
   text = (data) => {
-    if (data.text != "") {
+    if (data.text !== "") {
       this.setState(
         {
           validName: true,
