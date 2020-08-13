@@ -6,13 +6,18 @@ export default function InputText(props) {
   const [Value, setValue] = useState({ text: "", inputValid: true });
   const [errValue, seterrValue] = useState("");
   useEffect(() => {
-    props.datatext({ ...Value, id: props.data.id });
+    // props.datatext({ ...Value, id: props.data.id });
     if (!Value.inputValid) {
       seterrValue("Đây là một câu hỏi bắt buộc");
     }
   }, [Value, props]);
 
   const Onchange = (e) => {
+    props.datatext({
+      text: e.target.value,
+      inputValid: e.target.value ? true : false,
+      id: props.data.id,
+    });
     setValue({
       text: e.target.value,
       inputValid: e.target.value ? true : false,

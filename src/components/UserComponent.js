@@ -1,8 +1,8 @@
-import React, { Fragment, PureComponent } from "react";
+import React, { Fragment, Component } from "react";
 import InputText from "./InputText";
 import { Button } from "@material-ui/core";
 
-export default class UserComponent extends PureComponent {
+export default class UserComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,29 +37,45 @@ export default class UserComponent extends PureComponent {
     ));
   };
   text = (data) => {
-    switch (data.id) {
-      case 0:
-        this.setState(() => ({
-          hoTen: data.text,
-          valid: !!data.text && !!this.state.maNV && !!this.state.email,
-        }));
-        break;
-      case 1:
-        this.setState(() => ({
-          maNV: data.text,
-          valid: !!this.state.hoTen && !!data.text && !!this.state.email,
-        }));
-        break;
-      case 2:
-        this.setState(() => ({
-          email: data.text,
-          valid: !!this.state.hoTen && !!this.state.maNV && !!data.text,
-        }));
-        break;
+    if (data.text)
+      switch (data.id) {
+        case 0:
+          this.setState(
+            {
+              hoTen: data.text,
+              valid: !!data.text && !!this.state.maNV && !!this.state.email,
+            },
+            () => {
+              console.log(this.state);
+            }
+          );
+          break;
+        case 1:
+          this.setState(
+            {
+              maNV: data.text,
+              valid: !!this.state.hoTen && !!data.text && !!this.state.email,
+            },
+            () => {
+              console.log(this.state);
+            }
+          );
+          break;
+        case 2:
+          this.setState(
+            {
+              email: data.text,
+              valid: !!this.state.hoTen && !!this.state.maNV && !!data.text,
+            },
+            () => {
+              console.log(this.state);
+            }
+          );
+          break;
 
-      default:
-        break;
-    }
+        default:
+          break;
+      }
   };
   render() {
     return (
