@@ -6,7 +6,6 @@ export default function InputText(props) {
   const [Value, setValue] = useState({ text: "", inputValid: true });
   const [errValue, seterrValue] = useState("");
   useEffect(() => {
-    // props.datatext({ ...Value, id: props.data.id });
     if (!Value.inputValid) {
       seterrValue("Đây là một câu hỏi bắt buộc");
     }
@@ -16,7 +15,7 @@ export default function InputText(props) {
     props.datatext({
       text: e.target.value,
       inputValid: e.target.value ? true : false,
-      id: props.data.id,
+      IDCauHoi: props.data.IDCauHoi,
     });
     setValue({
       text: e.target.value,
@@ -29,8 +28,8 @@ export default function InputText(props) {
   return (
     <div className={`input-group ${!Value.inputValid ? "input-err" : ""}`}>
       <h4>
-        {props.data.tieuDe}
-        {props.data.required ? <span> *</span> : ""}
+        {props.data.TieuDe}
+        {props.data.BatBuoc ? <span> *</span> : ""}
       </h4>
       <FormControl err={"false"}>
         <Input

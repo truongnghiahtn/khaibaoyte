@@ -47,9 +47,9 @@ export default function CheckBox(props) {
 
   return (
     <div className={`input-group ${err ? "input-err" : ""}`}>
-      <h4>Trong vòng 14 ngày Anh/ Chị có dấu hiệu nào sau đây không?</h4>
+      <h4>{props.data.TieuDe}</h4>
       <FormControl error={true} onChange={onchangeFormControl}>
-        {["Option 1", "Option 2", "Option 3"].map((item, index) => (
+        {props.data.NoiDung.map((item, index) => (
           <FormControlLabel
             value={item}
             key={index}
