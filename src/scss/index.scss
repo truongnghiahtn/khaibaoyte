@@ -28,19 +28,20 @@
     .img {
     }
   }
+
   .img-header-left {
     width: 40px;
     height: 120px;
-    background: linear-gradient(0.25turn, #1c6086, white);
+    background: linear-gradient(0.25turn, #1c6086, #d0edfd);
     position: absolute;
     z-index: 100;
     top: 0;
-    left: -20px;
+    left: -15px;
   }
   .img-header-right {
     width: 40px;
     height: 120px;
-    background: linear-gradient(0.25turn, white, #1c6086);
+    background: linear-gradient(0.25turn, #d0edfd, #1c6086);
     position: absolute;
     z-index: 100;
     top: 0;
@@ -51,7 +52,7 @@
 // footer
 .footer {
   height: 120px;
-  background: linear-gradient(white, #1c6086);
+  background: linear-gradient(#eceef8, #1c6086);
   .footer-left {
     margin-top: 30px;
     display: flex;
@@ -211,4 +212,7 @@ body {
   img {
     width: 100%;
   }
+}
+a:hover {
+  color: white !important;
 }

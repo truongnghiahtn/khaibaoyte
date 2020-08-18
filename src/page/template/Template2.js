@@ -16,27 +16,27 @@ export default class componentName extends Component {
     };
   }
 
-  text = (data) => {
-    if (data.text != "") {
-      this.setState(
-        {
-          validName: true,
-        },
-        () => {
-          this.formValid();
-        }
-      );
-    } else {
-      this.setState(
-        {
-          validName: false,
-        },
-        () => {
-          this.formValid();
-        }
-      );
-    }
-  };
+  // text = (data) => {
+  //   if (data.text != "") {
+  //     this.setState(
+  //       {
+  //         validName: true,
+  //       },
+  //       () => {
+  //         this.formValid();
+  //       }
+  //     );
+  //   } else {
+  //     this.setState(
+  //       {
+  //         validName: false,
+  //       },
+  //       () => {
+  //         this.formValid();
+  //       }
+  //     );
+  //   }
+  // };
   checkbox = (data) => {
     if (data.length >= 1) {
       this.setState(
@@ -102,7 +102,7 @@ export default class componentName extends Component {
         <div className="tp-content">
           <div className="tp-cotent__title">Thông tin yếu tố nguy cơ</div>
           <div className="user">
-            <InputText datatext={this.text} />
+            {/* <InputText datatext={this.text} data={}/> */}
             <CheckBox datacheck={this.checkbox} />
             <RadioButton dataradio={this.Radio} />
             <button

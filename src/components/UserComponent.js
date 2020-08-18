@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from "react";
 import InputText from "./InputText";
 import { Button } from "@material-ui/core";
+import { NavLink } from "react-router-dom"
 
 export default class UserComponent extends Component {
   constructor(props) {
@@ -23,8 +24,12 @@ export default class UserComponent extends Component {
       {
         id: 1,
         tieuDe: "Mã số nhân viên",
-        loaiCauHoi: "text",
-        required: true,
+        loaiCauHoi: "radiobutton",
+        noidung: [
+          { option: "yes" },
+          { option: "no" }
+        ]
+
       },
       {
         id: 2,
@@ -91,10 +96,12 @@ export default class UserComponent extends Component {
           variant="contained"
           color="primary"
           disabled={!this.state.valid}
+          to="/ask"
+          component={NavLink}
         >
           Tiếp
         </Button>
-      </Fragment>
+      </Fragment >
     );
   }
 }
