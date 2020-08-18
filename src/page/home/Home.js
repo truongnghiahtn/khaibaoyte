@@ -1,41 +1,65 @@
 import React, { Component, Fragment } from "react";
 import { Select, Input, MenuItem, Button } from "@material-ui/core";
 import PageTitleArea from "../../components/PageTitleArea";
+import Axios from "axios";
 import { NavLink } from "react-router-dom";
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      chuDe: [
-        { id: 0, chuDe: "chude1" },
-        { id: 1, chuDe: "chude2" },
-        { id: 2, chuDe: "chude3" },
-      ],
-      template: [
-        { id: 0, idChuDe: 0, template: "Template 1" },
-        { id: 1, idChuDe: 1, template: "Template 2" },
-        { id: 2, idChuDe: 2, template: "Template 3" },
-        { id: 3, idChuDe: 0, template: "Template 4" },
-        { id: 4, idChuDe: 1, template: "Template 5" },
-        { id: 5, idChuDe: 1, template: "Template 6" },
-      ],
+      chuDe: [],
+      template: [],
       chuDeSelected: -1,
       templateSelected: -1,
     };
   }
+
+  componentDidMount() {
+    this.getChuDe()
+  }
+  getChuDe = () => {
+    Axios({
+      method: "GET",
+      url: "http://localhost:50663/api/ApiChuDe",
+    })
+      .then((result) => {
+        console.log(result.data)
+        this.setState({
+          chuDe: result.data
+        }, () => { console.log(this.state.chuDe) })
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  getTemplate = (id) => {
+    Axios({
+      method: "GET",
+      url: `http://localhost:50663/api/Templates/${id}`,
+    })
+      .then((result) => {
+        this.setState({
+          template: result.data
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
   renderChuDe = () => {
     return this.state.chuDe.map((item, index) => (
-      <MenuItem key={index} value={item.id}>
-        <em>{item.chuDe}</em>
+      <MenuItem key={index} value={item.IDChuDe}>
+        <em>{item.TenChuDe}</em>
       </MenuItem>
     ));
   };
   renderTemplate = () => {
     return this.state.template
-      .filter((item) => item.idChuDe === this.state.chuDeSelected)
       .map((item, index) => (
-        <MenuItem key={index} value={item.id}>
-          <em>{item.template}</em>
+        <MenuItem key={index} value={item.IDTemplate}>
+          <em>{item.TenTemplate}</em>
         </MenuItem>
       ));
   };
@@ -44,6 +68,8 @@ class Home extends Component {
       chuDeSelected: e.target.value,
       templateSelected: -1,
     });
+    this.getTemplate(e.target.value)
+
   };
   onChangeTemplate = (e) => {
     this.setState({
