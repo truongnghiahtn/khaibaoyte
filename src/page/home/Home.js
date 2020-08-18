@@ -75,9 +75,21 @@ class Home extends Component {
     this.setState({
       templateSelected: e.target.value,
     });
+
   };
+  onNext = () => {
+    sessionStorage.setItem("idChuDe", this.state.chuDeSelected);
+    sessionStorage.setItem(
+      "template",
+      JSON.stringify(
+        this.state.template.find(
+          (item) => item.IDTemplate === this.state.templateSelected
+        )
+      )
+    );
+  }
   render() {
-    let title = "Khai Báo Y Tês";
+    let title = "Khai Báo Y Tế";
     let des =
       "Bằng cách khai báo y tế trên ứng dụng NCOVI, mỗi chúng ta đã đóng góp phần công sức vào công cuộc phòng và chống đại dịch cúm Corona, giúp các cơ quan nhà nước, Bộ Y Tế có thể thống kê, kiểm soát tình hình và thực hiện các biện pháp cách ly chính xác và nhanh chóng, trách lây lan. Trước tình hình đại dịch cúm Corona hay Covid-19 đang lây lan ngày một nhanh hơn, chiều 9/3, Bộ Y Tế kết hợp Bộ Thông tin và Truyền thông đã tiến hành mở dịch vụ khai báo y tế trên ứng dụng NCOVI(hay nCoV) và Vietnam Health Declaration hỗ trợ khai báo y tế, nâng cao công tác phòng chống dịch. Các bạn có thể tải app tại 2 địa chỉ:";
 
@@ -120,6 +132,7 @@ class Home extends Component {
                   disabled={this.state.templateSelected === -1}
                   to="/user"
                   component={NavLink}
+                  onClick={this.onNext}
                 >
                   Tiếp
                 </Button>

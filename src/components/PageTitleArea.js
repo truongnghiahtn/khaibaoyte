@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function PageTitleArea(props) {
+
+
   return (
     <div className="page-title-area">
       <h1>{props.title}</h1>
