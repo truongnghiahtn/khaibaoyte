@@ -12,6 +12,7 @@ export default function Inputuser(props) {
     }, [Value, props]);
 
     const Onchange = (e) => {
+
         props.datatext({
             CauTraLoi: e.target.value,
             IDCauHoi: props.data.idName,

@@ -27,7 +27,6 @@ export default class componentName extends Component {
     text = (data) => {
 
         let noiDungCauHoiUpdate = this.state.noiDungCauHoi;
-
         // 
         let index = this.state.noiDungCauHoi.findIndex((item) => {
             return item.IDCauHoi == data.IDCauHoi
@@ -48,9 +47,6 @@ export default class componentName extends Component {
         let index = this.state.noiDungCauHoi.findIndex(item => {
             return item.CauTraLoi === "";
         })
-
-
-
         if (this.props.cauHoi.length === this.state.noiDungCauHoi.length && index === -1) {
             valid = true
         }
@@ -64,9 +60,12 @@ export default class componentName extends Component {
     }
 
 
-    submit = () => {
+    next = () => {
         this.props.submitText(this.state.noiDungCauHoi)
         this.props.next(3);
+    }
+    submit = () => {
+        this.props.postdata(this.state.noiDungCauHoi)
     }
     render() {
         console.log(this.props.endpage, "haha")
@@ -96,7 +95,7 @@ export default class componentName extends Component {
                         variant="contained"
                         color="primary"
                         disabled={!this.state.valid}
-                        onClick={this.submit}
+                        onClick={this.next}
                     >
                         Tiếp
           </Button>}

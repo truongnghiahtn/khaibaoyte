@@ -34,10 +34,10 @@ export default class componentName extends Component {
         }
         this.setState({
             noiDungCauHoi: noiDungCauHoiUpdate,
-        }, () => { this.checktext() })
+        }, () => { this.checkRadio() })
     };
 
-    checktext = () => {
+    checkRadio = () => {
         let valid
 
         if (this.props.cauHoi.length === this.state.noiDungCauHoi.length) {
@@ -52,9 +52,12 @@ export default class componentName extends Component {
 
     }
 
-    submit = () => {
+    next = () => {
         this.props.submitRadio(this.state.noiDungCauHoi)
         this.props.next(4);
+    }
+    submit = () => {
+        this.props.postdata(this.state.noiDungCauHoi)
     }
 
     render() {
@@ -81,7 +84,7 @@ export default class componentName extends Component {
                         variant="contained"
                         color="primary"
                         disabled={!this.state.valid}
-                        onClick={this.submit}
+                        onClick={this.next}
                     >
                         Tiếp
           </Button>}

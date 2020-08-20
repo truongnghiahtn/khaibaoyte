@@ -7,7 +7,6 @@ import PageCheckout from "../../components/pageCheckout";
 import UserComponent from "../../components/UserComponent";
 import { map } from 'jquery';
 export default class componentName extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -23,17 +22,14 @@ export default class componentName extends Component {
         IDChuDe: "",
         IDTemplate: "",
         CauTraLoi_ChiTiet: [],
-        endpage: null
-      }
+      },
+      endpage: null
     }
   }
-
   componentDidMount() {
     this.getCauHoi();
   }
-
   getCauHoi = () => {
-
     if (sessionStorage.getItem("template")) {
       var temPlateLocal = JSON.parse(sessionStorage.getItem("template"));
       Axios({
@@ -41,9 +37,6 @@ export default class componentName extends Component {
         url: `http://localhost:50663/api/CauHoi/${temPlateLocal.IDTemplate}`,
       })
         .then((result) => {
-          console.log(result.data)
-          // let mangtext = result.data.filter((item) => { return item.DangCauHoi === "TextBox" });
-          // console.log(mangtext)
           this.setState({
             cauHoiText: result.data.filter((item) => { return item.DangCauHoi === "TextBox" }),
             cauHoiRadio: result.data.filter((item) => { return item.DangCauHoi === "RadioBox" }),
@@ -54,18 +47,13 @@ export default class componentName extends Component {
           console.log(err);
         });
     }
-
-
   }
-
-
   renderHtmlUser = () => {
     return (
       <div className={this.state.indexPage === 1 ? "vi" : "d-none"}>
-        <UserComponent next={this.nextpage} submitUser={this.dataUser} endpage={this.state.endpage} />
+        <UserComponent next={this.nextpage} submitUser={this.dataUser} postdata={this.postData} endpage={this.state.endpage} />
       </div>
     )
-
   }
   dataUser = (data) => {
     var hoten, msnv, email;
@@ -94,83 +82,77 @@ export default class componentName extends Component {
           IDTemplate: temPlateLocal.IDTemplate,
           IDChuDe: idChuDe
         }
-      }, () => { this.postData(this.state.values, 1) })
+      }, () => {
+        console.log(this.state.endpage)
+        if (this.state.endpage == 1) {
+          Axios({
+            method: "POST",
+            url: "http://localhost:50663/api/ApiCauTraLoi",
+            data: this.state.values
+          })
+            .then((result) => {
+              console.log(result)
+              this.props.history.push("Submit")
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      })
     }
   }
   renderHtmlText = () => {
     return (
       <div className={this.state.indexPage === 2 ? "vi" : "d-none"}>
-        <PageTextBox cauHoi={this.state.cauHoiText} next={this.nextpage} prve={this.prevpage} submitText={this.dataText} endpage={this.state.endpage} />
+        <PageTextBox cauHoi={this.state.cauHoiText} next={this.nextpage} prve={this.prevpage} postdata={this.postData} submitText={this.dataValue} endpage={this.state.endpage} />
       </div>
     )
-
-  }
-  dataText = (data) => {
-    console.log(data)
-    const CauTraLoi_ChiTietUpdate = this.state.values.CauTraLoi_ChiTiet.concat(data);
-    this.setState({
-      values: {
-        ...this.state.values,
-        CauTraLoi_ChiTiet: CauTraLoi_ChiTietUpdate
-      }
-    }, () => { this.postData(this.state.values, 2) })
   }
   renderHtmlRadio = () => {
     return (
       <div className={this.state.indexPage === 3 ? "vi" : "d-none"}>
-        <PageRadio cauHoi={this.state.cauHoiRadio} next={this.nextpage} prve={this.prevpage} submitRadio={this.dataRadio} endpage={this.state.endpage} />
+        <PageRadio cauHoi={this.state.cauHoiRadio} next={this.nextpage} prve={this.prevpage} postdata={this.postData} submitRadio={this.dataValue} endpage={this.state.endpage} />
       </div>
     )
-
-  }
-  dataRadio = (data) => {
-    console.log(data)
-    const CauTraLoi_ChiTietUpdate = this.state.values.CauTraLoi_ChiTiet.concat(data);
-    this.setState({
-      values: {
-        ...this.state.values,
-        CauTraLoi_ChiTiet: CauTraLoi_ChiTietUpdate
-      }
-    }, () => { this.postData(this.state.values, 3) })
   }
   renderHtmlCheck = () => {
     return (
       <div className={this.state.indexPage === 4 ? "vi" : "d-none"}>
-        <PageCheckout cauHoi={this.state.cauHoiCheck} next={this.nextpage} prve={this.prevpage} submitCheck={this.dataCheck} endpage={this.state.endpage} />
+        <PageCheckout cauHoi={this.state.cauHoiCheck} next={this.nextpage} prve={this.prevpage} postdata={this.postData} submitCheck={this.dataValue} endpage={this.state.endpage} />
       </div>
     )
   }
-  dataCheck = (data) => {
-    console.log(data)
+  dataValue = (data) => {
     const CauTraLoi_ChiTietUpdate = this.state.values.CauTraLoi_ChiTiet.concat(data);
     this.setState({
       values: {
         ...this.state.values,
         CauTraLoi_ChiTiet: CauTraLoi_ChiTietUpdate
       }
-    }, () => { this.postData(this.state.values, 4) })
+    })
   }
-
-  postData = (data, index) => {
-    if (index === this.state.endpage) {
+  postData = (data) => {
+    const CauTraLoi_ChiTietUpdate = this.state.values.CauTraLoi_ChiTiet.concat(data);
+    this.setState({
+      values: {
+        ...this.state.values,
+        CauTraLoi_ChiTiet: CauTraLoi_ChiTietUpdate
+      }
+    }, () => {
       Axios({
         method: "POST",
         url: "http://localhost:50663/api/ApiCauTraLoi",
-        data
-
+        data: this.state.values
       })
         .then((result) => {
           console.log(result)
-          // window.location.reload();
           this.props.history.push("Submit")
         })
         .catch((err) => {
           console.log(err);
         });
-    }
-
+    })
   }
-
   renderPageTitle = () => {
     if (sessionStorage.getItem("template")) {
       var temPlateLocal = JSON.parse(sessionStorage.getItem("template"));
@@ -184,72 +166,35 @@ export default class componentName extends Component {
       )
     }
   }
-
-  // indexPage = (data) => {
-
-  //   this.setState({
-  //     indexPage: data
-  //   }, () => { console.log(this.state.indexPage) })
-  // }
-
   checkCauHoi = () => {
-    let mang = this.state.soLoaiCauHoi
-    if (this.state.cauHoiText.length != 0) {
-      mang.push(2)
-    }
-    if (this.state.cauHoiRadio.length != 0) {
-      mang.push(3)
-    }
-    if (this.state.cauHoiCheck.length != 0) {
-      mang.push(4)
-    }
-    console.log(mang)
+    let { soLoaiCauHoi, cauHoiText, cauHoiRadio, cauHoiCheck } = this.state
+    if (cauHoiText.length != 0) soLoaiCauHoi.push(2)
+    if (cauHoiRadio.length != 0) soLoaiCauHoi.push(3)
+    if (cauHoiCheck.length != 0) soLoaiCauHoi.push(4)
     this.setState({
-      soLoaiCauHoi: mang
+      soLoaiCauHoi
     }, () => { this.endPage() })
   }
   nextpage = (data) => {
-    let flag = 0
-    this.state.soLoaiCauHoi.map(item => {
-      for (let i = data; i < 5; i++) {
-        if (i == item) {
-          flag = 1
-          this.setState({
-            indexPage: i
-          })
-        }
-        if (flag == 1) {
-          break;
-        }
-      }
-    })
-
+    this.setState({
+      indexPage: this.state.soLoaiCauHoi
+        .find((item) => item >= data),
+    });
   }
-
   prevpage = (data) => {
-    let flag = 0
-    this.state.soLoaiCauHoi.map(item => {
-      for (let i = data; i > 0; i--) {
-        if (i == item) {
-          flag = 1
-          this.setState({
-            indexPage: i
-          })
-        }
-
-      }
-    })
-
+    this.setState({
+      indexPage: this.state.soLoaiCauHoi
+        .reverse()
+        // đổi chiều phần tử trong mảng
+        .find((item) => item <= data),
+    });
   }
   endPage = () => {
     let max = this.state.soLoaiCauHoi.length;
-    console.log(this.state.soLoaiCauHoi[max - 1])
     this.setState({
       endpage: this.state.soLoaiCauHoi[max - 1]
     })
   }
-
-
   render() {
     return (
       <Fragment>

@@ -57,7 +57,7 @@ export default class componentName extends Component {
     }
 
     submit = () => {
-        this.props.submitCheck(this.state.noiDungCauHoi)
+        this.props.postdata(this.state.noiDungCauHoi)
     }
     render() {
         return (

@@ -64,9 +64,12 @@ export default class UserComponent extends Component {
   }
 
 
-  submit = () => {
+  next = () => {
     this.props.submitUser(this.state.noiDungCauHoi)
     this.props.next(2);
+  }
+  submit = () => {
+    this.props.submitUser(this.state.noiDungCauHoi)
   }
   render() {
     return (
@@ -83,7 +86,7 @@ export default class UserComponent extends Component {
             variant="contained"
             color="primary"
             disabled={!this.state.valid}
-            onClick={this.submit}
+            onClick={this.next}
           >
             tiep
       </Button>}
