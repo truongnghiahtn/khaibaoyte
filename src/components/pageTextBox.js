@@ -10,14 +10,14 @@ export default class componentName extends Component {
         this.state = {
             noiDungCauHoi: [],
             valid: false,
-            loaiCauHoi: [{ name: "HoTen", idName: 0, cauHoi: "Họ và tên" }, { name: "MSNV", idName: 1, cauHoi: "Mã số nhân viên" }, { name: "Email", idName: 2, cauHoi: "Địa chỉ Email" }]
+
 
 
         }
     }
 
     renderUser = () => {
-        return this.state.loaiCauHoi.map((item, index) => (
+        return this.props.cauHoi.map((item, index) => (
             <InputText key={index} datatext={this.text} data={item} />
         ));
     };
@@ -66,20 +66,40 @@ export default class componentName extends Component {
 
     submit = () => {
         this.props.submitText(this.state.noiDungCauHoi)
-        this.props.page(2);
+        this.props.next(3);
     }
     render() {
+        console.log(this.props.endpage, "haha")
         return (
             <div>
                 {this.renderUser()}
                 <Button
                     variant="contained"
                     color="primary"
-                    disabled={!this.state.valid}
-                    onClick={this.submit}
+                    onClick={() => { this.props.prve(1) }}
+                    className="mr-2"
                 >
-                    Tiếp
+                    Quay lại
           </Button>
+
+                {this.props.endpage === 2 ?
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        disabled={!this.state.valid}
+                        onClick={this.submit}
+                    >
+
+                        Submit
+          </Button> :
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        disabled={!this.state.valid}
+                        onClick={this.submit}
+                    >
+                        Tiếp
+          </Button>}
             </div>
 
         );

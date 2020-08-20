@@ -1,6 +1,6 @@
 import UserPage from "./page/home/UserPage";
-import AskPage from "./page/home/AskPage";
 import Home from "./page/home/Home";
+import Submit from "./components/pageSubmit"
 
 const routesHome = [
   {
@@ -14,9 +14,9 @@ const routesHome = [
     component: UserPage,
   },
   {
-    path: "/ask",
+    path: "/Submit",
     exact: false,
-    component: AskPage,
+    component: Submit,
   },
 ];
 

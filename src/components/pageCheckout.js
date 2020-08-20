@@ -66,7 +66,7 @@ export default class componentName extends Component {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => { this.props.page(2) }}
+                    onClick={() => { this.props.prve(3) }}
                     className="mr-2"
                 >
                     Quay lại

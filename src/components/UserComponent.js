@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from "react";
-import InputText from "./InputText";
+import InputUser from "./Inputuser";
 import { Button } from "@material-ui/core";
 import { NavLink } from "react-router-dom"
 
@@ -7,101 +7,89 @@ export default class UserComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hoTen: "",
-      maNV: "",
-      email: "",
+      noiDungCauHoi: [],
       valid: false,
-    };
-  }
-  renderUser = () => {
-    return [
-      {
-        id: 0,
-        tieuDe: "Họ và tên",
-        loaiCauHoi: "text",
-        required: true,
-      },
-      {
-        id: 1,
-        tieuDe: "Mã số nhân viên",
-        loaiCauHoi: "radiobutton",
-        noidung: [
-          { option: "yes" },
-          { option: "no" }
-        ]
+      loaiCauHoi: [{ name: "HoTen", idName: 0, cauHoi: "Họ và tên" }, { name: "MSNV", idName: 1, cauHoi: "Mã số nhân viên" }, { name: "Email", idName: 2, cauHoi: "Địa chỉ Email" }]
 
-      },
-      {
-        id: 2,
-        tieuDe: "Địa chỉ email",
-        loaiCauHoi: "text",
-        required: true,
-      },
-    ].map((item, index) => (
-      <InputText key={index} datatext={this.text} data={item} />
+
+    }
+  }
+
+  renderUser = () => {
+    return this.state.loaiCauHoi.map((item, index) => (
+      <InputUser key={index} datatext={this.text} data={item} />
     ));
   };
-  text = (data) => {
-    if (data.text)
-      switch (data.id) {
-        case 0:
-          this.setState(
-            {
-              hoTen: data.text,
-              valid: !!data.text && !!this.state.maNV && !!this.state.email,
-            },
-            () => {
-              console.log(this.state);
-            }
-          );
-          break;
-        case 1:
-          this.setState(
-            {
-              maNV: data.text,
-              valid: !!this.state.hoTen && !!data.text && !!this.state.email,
-            },
-            () => {
-              console.log(this.state);
-            }
-          );
-          break;
-        case 2:
-          this.setState(
-            {
-              email: data.text,
-              valid: !!this.state.hoTen && !!this.state.maNV && !!data.text,
-            },
-            () => {
-              console.log(this.state);
-            }
-          );
-          break;
 
-        default:
-          break;
-      }
-  };
+
+
+  text = (data) => {
+
+    let noiDungCauHoiUpdate = this.state.noiDungCauHoi;
+
+    // 
+    let index = this.state.noiDungCauHoi.findIndex((item) => {
+      return item.IDCauHoi == data.IDCauHoi
+    })
+    if (index != -1) {
+      noiDungCauHoiUpdate[index] = data
+    }
+    else {
+      // post
+      noiDungCauHoiUpdate = [...this.state.noiDungCauHoi, data]
+    }
+    this.setState({
+      noiDungCauHoi: noiDungCauHoiUpdate,
+    }, () => { this.checktext() })
+  }
+  checktext = () => {
+
+    let valid
+    let index = this.state.noiDungCauHoi.findIndex(item => {
+      return item.CauTraLoi === "";
+    })
+
+
+
+    if (this.state.loaiCauHoi.length === this.state.noiDungCauHoi.length && index === -1) {
+      valid = true
+    }
+    else {
+      valid = false
+    }
+    this.setState({
+      valid
+    })
+
+  }
+
+
+  submit = () => {
+    this.props.submitUser(this.state.noiDungCauHoi)
+    this.props.next(2);
+  }
   render() {
     return (
-      <Fragment>
-        <div className="img-qr">
-          <img
-            src="https://lh5.googleusercontent.com/y_2GPk5lNwN82mpPX460dOWdhn7cpFSt7ARAoDILStMeQaAz4N0qf8duVEOz1hQ-foXCQztxGT3o553t7wDtVp55s9CGkTuNoqx3ltW1OQc-sacBs7BvF4kERAyw=w1311"
-            alt=""
-          />
-        </div>
+      <div>
         {this.renderUser()}
-        <Button
+        {this.props.endpage === 1 ? <Button
           variant="contained"
           color="primary"
           disabled={!this.state.valid}
-          to="/ask"
-          component={NavLink}
+          onClick={this.submit}
         >
-          Tiếp
-        </Button>
-      </Fragment >
+          submit
+      </Button> : <Button
+            variant="contained"
+            color="primary"
+            disabled={!this.state.valid}
+            onClick={this.submit}
+          >
+            tiep
+      </Button>}
+      </div>
+
     );
   }
 }
+

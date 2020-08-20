@@ -54,7 +54,7 @@ export default class componentName extends Component {
 
     submit = () => {
         this.props.submitRadio(this.state.noiDungCauHoi)
-        this.props.page(3);
+        this.props.next(4);
     }
 
     render() {
@@ -64,19 +64,27 @@ export default class componentName extends Component {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => { this.props.page(1) }}
+                    onClick={() => { this.props.prve(2) }}
                     className="mr-2"
                 >
                     Quay lại
           </Button>
-                <Button
+
+                {this.props.endpage === 3 ? <Button
                     variant="contained"
                     color="primary"
                     disabled={!this.state.valid}
                     onClick={this.submit}
                 >
-                    Tiếp
-          </Button>
+                    Submit
+          </Button> : <Button
+                        variant="contained"
+                        color="primary"
+                        disabled={!this.state.valid}
+                        onClick={this.submit}
+                    >
+                        Tiếp
+          </Button>}
 
             </div>
         );
