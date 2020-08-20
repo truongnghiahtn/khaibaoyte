@@ -9,7 +9,6 @@ export default class componentName extends Component {
         this.state = {
             noiDungCauHoi: [],
             valid: false,
-
         }
     }
 
@@ -19,29 +18,47 @@ export default class componentName extends Component {
         ));
     };
     checkbox = (data) => {
-        // if (data.length >= 1) {
-        //     this.setState(
-        //         {
-        //             validCheckBox: true,
-        //         },
-        //         () => {
-        //             this.formValid();
-        //         }
-        //     );
-        // } else {
-        //     this.setState(
-        //         {
-        //             validCheckBox: false,
-        //         },
-        //         () => {
-        //             this.formValid();
-        //         }
-        //     );
-        // }
-        console.log(data)
+        let noiDungCauHoiUpdate = this.state.noiDungCauHoi;
+
+        // 
+        let index = this.state.noiDungCauHoi.findIndex((item) => {
+            return item.IDCauHoi == data.IDCauHoi
+        })
+        if (index != -1) {
+            noiDungCauHoiUpdate[index] = data
+        }
+        else {
+            // post
+            noiDungCauHoiUpdate = [...this.state.noiDungCauHoi, data]
+        }
+        this.setState({
+            noiDungCauHoi: noiDungCauHoiUpdate,
+        }, () => { this.checkValid() })
     };
 
+    checkValid = () => {
+        let valid
+        let index = this.state.noiDungCauHoi.findIndex(item => {
+            return item.CauTraLoi === "";
+        })
+        console.log(this.state.noiDungCauHoi)
 
+
+        if (index === -1) {
+            valid = true
+        }
+        else {
+            valid = false
+        }
+        this.setState({
+            valid
+        }, () => console.log(this.state.valid))
+
+    }
+
+    submit = () => {
+        this.props.submitCheck(this.state.noiDungCauHoi)
+    }
     render() {
         return (
             <div>
@@ -57,7 +74,8 @@ export default class componentName extends Component {
                 <Button
                     variant="contained"
                     color="primary"
-                // disabled={!this.state.valid}
+                    disabled={!this.state.valid}
+                    onClick={this.submit}
                 >
                     submit
           </Button>

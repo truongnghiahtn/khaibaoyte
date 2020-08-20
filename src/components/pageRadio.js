@@ -48,8 +48,13 @@ export default class componentName extends Component {
         }
         this.setState({
             valid
-        }, () => console.log(this.state))
+        })
 
+    }
+
+    submit = () => {
+        this.props.submitRadio(this.state.noiDungCauHoi)
+        this.props.page(3);
     }
 
     render() {
@@ -68,7 +73,7 @@ export default class componentName extends Component {
                     variant="contained"
                     color="primary"
                     disabled={!this.state.valid}
-                    onClick={() => { this.props.page(3) }}
+                    onClick={this.submit}
                 >
                     Tiếp
           </Button>

@@ -10,17 +10,14 @@ export default class componentName extends Component {
         this.state = {
             noiDungCauHoi: [],
             valid: false,
+            loaiCauHoi: [{ name: "HoTen", idName: 0, cauHoi: "Họ và tên" }, { name: "MSNV", idName: 1, cauHoi: "Mã số nhân viên" }, { name: "Email", idName: 2, cauHoi: "Địa chỉ Email" }]
+
 
         }
     }
 
-    componentDidMount() {
-        this.setState({
-            noiDungCauHoi: this.props.noidung
-        })
-    }
     renderUser = () => {
-        return this.props.cauHoi.map((item, index) => (
+        return this.state.loaiCauHoi.map((item, index) => (
             <InputText key={index} datatext={this.text} data={item} />
         ));
     };
@@ -49,9 +46,9 @@ export default class componentName extends Component {
     checktext = () => {
         let valid
         let index = this.state.noiDungCauHoi.findIndex(item => {
-            return item.inputValid === false
+            return item.CauTraLoi === "";
         })
-        console.log(this.state.noiDungCauHoi)
+
 
 
         if (this.props.cauHoi.length === this.state.noiDungCauHoi.length && index === -1) {
@@ -62,7 +59,7 @@ export default class componentName extends Component {
         }
         this.setState({
             valid
-        }, () => console.log(this.state.valid))
+        })
 
     }
 

@@ -14,13 +14,23 @@ export default function CheckBox(props) {
 
 
   useEffect(() => {
-    // console.log(values)
-    props.datacheck(values)
+
+    // chuyen du lieu sang dang chuoi
+
+
+    props.datacheck({
+      IDCauHoi: props.data.IDCauHoi,
+      CauTraLoi: values.join(),
+
+    })
+    // 
     setErr(false)
   }, [values])
   const helo = () => {
-    // console.log(values)
-    props.datacheck(values)
+    props.datacheck({
+      IDCauHoi: props.data.IDCauHoi,
+      CauTraLoi: values.join()
+    })
     if (!values.length) {
       setErr(true)
     }
@@ -28,8 +38,6 @@ export default function CheckBox(props) {
   const onchangeFormControl = (e) => {
 
     let { value } = e.target
-    // let mang = values;
-
     let index = values.findIndex(item => {
       return item === value
     })

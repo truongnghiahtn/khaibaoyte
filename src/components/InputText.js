@@ -13,9 +13,9 @@ export default function InputText(props) {
 
   const Onchange = (e) => {
     props.datatext({
-      text: e.target.value,
-      inputValid: e.target.value ? true : false,
-      IDCauHoi: props.data.IDCauHoi,
+      CauTraLoi: e.target.value,
+      IDCauHoi: props.data.idName,
+      name: e.target.name
     });
     setValue({
       text: e.target.value,
@@ -28,14 +28,15 @@ export default function InputText(props) {
   return (
     <div className={`input-group ${!Value.inputValid ? "input-err" : ""}`}>
       <h4>
-        {props.data.TieuDe}
-        {props.data.BatBuoc ? <span> *</span> : ""}
+        {props.data.cauHoi}
+        {true ? <span> *</span> : ""}
       </h4>
       <FormControl err={"false"}>
         <Input
           onChange={Onchange}
           error={!Value.inputValid}
           placeholder="Câu trả lời của bạn"
+          name={props.data.name}
         />
         <FormHelperText className={!Value.inputValid ? "err-text" : "d-none"}>
           <i className="fa fa-exclamation"></i> {errValue}

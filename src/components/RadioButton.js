@@ -15,8 +15,9 @@ export default function RadioButton(props) {
 
     setValue({ option: e.target.value });
     props.dataradio({
-      option: e.target.value,
+
       IDCauHoi: props.data.IDCauHoi,
+      CauTraLoi: e.target.value,
     })
   }
 
