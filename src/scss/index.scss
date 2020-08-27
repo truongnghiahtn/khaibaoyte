@@ -1,5 +1,6 @@
 //
 //
+
 .Header {
   height: 120px;
   background-color: #1c6086;
@@ -229,5 +230,20 @@ a:hover {
   text-decoration: none;
   &:hover {
     text-decoration: none;
+  }
+}
+.Dasboard {
+  margin-top: 10px;
+  .content-Parent {
+    padding: 5px;
+  }
+  .content {
+    padding-top: 20px;
+    padding: 30px 20px;
+    margin: 0 auto;
+    min-height: 100px;
+    max-height: 350px;
+    overflow-y: auto;
+    background-color: #fff;
   }
 }
