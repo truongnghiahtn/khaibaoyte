@@ -4,9 +4,11 @@ import PageTitleArea from "../../components/PageTitleArea";
 import Axios from "axios";
 import { NavLink } from "react-router-dom";
 import Chude from "./chude";
-import Template from "./template"
-import Cauhoi from "./cauHoi"
-import CauTraLoi from "./cauTraLoi"
+import Template from "./template";
+import Cauhoi from "./cauHoi";
+import CauTraLoi from "./cauTraLoi";
+import CauTraLoiText from "./cauTraLoiText";
+import CauTraLoiRadio from "./cauTraLoiRadio";
 
 export default class dasboard extends Component {
     constructor(props) {
@@ -17,7 +19,9 @@ export default class dasboard extends Component {
             chuDeSelected: -1,
             templateSelected: -1,
             CauHoi: [],
-            CauTraLoi: []
+            CauTraLoi: [],
+            CauTraLoiText: [],
+            CauTraLoiRadio: [[]]
         };
     }
 
@@ -30,10 +34,9 @@ export default class dasboard extends Component {
             url: "http://localhost:50663/api/ApiChuDe",
         })
             .then((result) => {
-                console.log(result.data)
                 this.setState({
                     chuDe: result.data
-                }, () => { console.log(this.state.chuDe) })
+                })
             })
             .catch((err) => {
                 console.log(err);
@@ -59,7 +62,6 @@ export default class dasboard extends Component {
             url: `http://localhost:50663/api/CauHoi/${id}`,
         })
             .then((result) => {
-                console.log(result.data)
                 this.setState({
                     CauHoi: result.data
                 })
@@ -74,9 +76,39 @@ export default class dasboard extends Component {
             url: `http://localhost:50663/api/ApiTemplate_4/${id}`,
         })
             .then((result) => {
-                console.log(result.data)
                 this.setState({
                     CauTraLoi: result.data
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    getCauTraLoiText = (id) => {
+        Axios({
+            method: "GET",
+            url: `http://localhost:50663/api/ApiTemplate_text/${id}`,
+        })
+            .then((result) => {
+
+                this.setState({
+                    CauTraLoiText: result.data
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+    getCauTraLoiRadio = (id) => {
+        Axios({
+            method: "GET",
+            url: `http://localhost:50663/api/ApiTemplate_radio/${id}`,
+        })
+            .then((result) => {
+
+                this.setState({
+                    CauTraLoiRadio: result.data
                 })
             })
             .catch((err) => {
@@ -106,7 +138,7 @@ export default class dasboard extends Component {
             templateSelected: -1,
         }, () => {
             this.getTemplate(e.target.value);
-            this.getCauTraLoi(e.target.value);
+
         });
 
 
@@ -116,10 +148,28 @@ export default class dasboard extends Component {
             templateSelected: e.target.value,
         }, () => {
             this.getCauHoi(e.target.value)
+            this.getCauTraLoi(e.target.value);
+            this.getCauTraLoiText(e.target.value);
+            this.getCauTraLoiRadio(e.target.value);
 
         });
 
     };
+
+    renderhtmlCauTraLoiText = () => {
+
+        return this.state.CauTraLoiText.map((item, index) => {
+            return < CauTraLoiText key={index} data={item} />
+        })
+    }
+    renderhtmlCauTraLoiRadio = () => {
+
+        let mang = this.state.CauTraLoiRadio[0];
+        let mang1 = this.state.CauTraLoiRadio[1];
+        return mang.map((item, index) => {
+            return (<CauTraLoiRadio key={index} data={item} dem={index} bigdata={mang1} />)
+        })
+    }
 
     render() {
         return (
@@ -164,6 +214,8 @@ export default class dasboard extends Component {
                         <CauTraLoi data={this.state.CauTraLoi} title="Hoten" />
                         <CauTraLoi data={this.state.CauTraLoi} title="MSNV" />
                         <CauTraLoi data={this.state.CauTraLoi} title="Email" />
+                        {this.renderhtmlCauTraLoiText()}
+                        {this.renderhtmlCauTraLoiRadio()}
                     </div>
                 </div>
 

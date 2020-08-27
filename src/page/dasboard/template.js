@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class template extends Component {
     renderhtml = () => {
         return this.props.data.map((item, index) => {
-            return (<p> {item.TenTemplate}</p>)
+            return (<p key={index}> {item.TenTemplate}</p>)
         })
     }
     render() {

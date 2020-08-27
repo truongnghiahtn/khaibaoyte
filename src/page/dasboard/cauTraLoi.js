@@ -2,24 +2,23 @@ import React, { Component } from 'react';
 
 export default class cautraloi extends Component {
     renderhtml = () => {
-        console.log(this.props.data)
         switch (this.props.title) {
             case "Hoten":
                 return (
                     this.props.data.map((item, index) => {
-                        return (<p> {item.Hoten}</p>)
+                        return (<p key={index}> {item.Hoten}</p>)
                     })
                 )
             case "MSNV":
                 return (
                     this.props.data.map((item, index) => {
-                        return (<p> {item.MSNV}</p>)
+                        return (<p key={index}> {item.MSNV}</p>)
                     })
                 )
             case "Email":
                 return (
                     this.props.data.map((item, index) => {
-                        return (<p> {item.Email}</p>)
+                        return (<p key={index}> {item.Email}</p>)
                     })
                 )
             default:
